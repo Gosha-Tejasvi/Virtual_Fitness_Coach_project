@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Pose Detection</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 font-sans leading-normal tracking-normal">
+  <div class="text-center my-6">
+    <h1 class="text-4xl font-bold text-gray-800">
+      Pose Detection - <span class="text-blue-600">{{ exercise }}</span>
+    </h1>
+  </div>
+
+  <div class="flex justify-center items-start gap-10 px-4">
+    <!-- Live Camera Feed -->
+    <div class="bg-white rounded-2xl shadow-lg p-6 w-1/2 text-center">
+      <h2 class="text-xl font-semibold mb-4">Live Camera Feed</h2>
+      <img id="videoFeed" src="" alt="Live Feed" class="w-full h-auto rounded-xl border border-gray-300">
+      <p id="feedbackText" class="mt-4 text-green-600 font-medium"></p>
+    </div>
+    <!-- Reference Pose -->
+    <div class="bg-white rounded-2xl shadow-lg p-6 w-1/2 text-center">
+      <h2 class="text-xl font-semibold mb-4">Reference Pose</h2>
+      <img id="refImage" src="" alt="Reference Pose" class="w-full h-auto rounded-xl border border-gray-300">
+    </div>
+  </div>
+  <!-- View Performance and Stop Session Buttons -->
+  <div class="text-center mt-6 space-x-4">
+    <button onclick="redirectToPerformance()" class="bg-blue-500 text-white px-4 py-2 rounded-md mt-4">
+      View Performance
+    </button>
+    <button onclick="stopSession()" class="bg-red-500 text-white px-4 py-2 rounded-md mt-4">
+      ⛔ Stop Session
+    </button>
+  </div>
+  <!-- JS to dynamically load video & reference -->
+  <script>
+    const exercise = "{{ exercise }}";
+    const username = "{{ username }}";
+    const videoFeed = document.getElementById('videoFeed');
+    const refImage = document.getElementById('refImage');
+    const feedbackText = document.getElementById('feedbackText');
+    videoFeed.src = `/video_feed?exercise=${exercise}&username=${username}`;
+    refImage.src = `/static/images/${exercise}.png`;
+    setInterval(() => {
+      fetch(`/get_feedback?exercise={{ exercise }}&username={{ username }}`)
+          .then(response => response.json())
+          .then(data => {
+              document.getElementById("feedbackText").innerText = data.feedback;
+          });
+    }, 1000);
+    function redirectToPerformance() {
+      window.location.href = "/dashboard";
+    }
+    function stopSession() {
+      fetch(`/stop_session?exercise=${exercise}`)
+        .then(response => response.json())
+        .then(data => {
+          alert(data.message || "Session stopped");
+          redirectToPerformance();
+        });
+    }
+  </script>
+</body>
+</html>

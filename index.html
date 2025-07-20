@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Virtual Fitness Coach</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    /* Fade-in animation */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeIn 1.2s ease-out forwards;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    /* Floating animation */
+    .floating {
+      animation: floating 3s ease-in-out infinite;
+    }
+    @keyframes floating {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+  </style>
+</head>
+<body class="bg-gradient-to-r from-blue-50 to-indigo-100 font-sans leading-normal tracking-normal">
+  <!-- Hero Section -->
+  <section class="relative bg-white py-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="lg:grid lg:grid-cols-2 lg:gap-24 lg:items-center">
+        <!-- Left: Text -->
+        <div class="text-center lg:text-left fade-in">
+          <h1 class="text-4xl font-extrabold text-gray-900 sm:text-5xl">
+            Your AI-Powered Virtual Fitness Coach
+          </h1>
+          <p class="mt-4 text-xl text-gray-600">
+            Get real-time posture correction, AI-driven exercise guidance, and performance tracking — all from your webcam.
+          </p>
+          <div class="mt-8 flex justify-center lg:justify-start">
+            <a href="/login" class="px-6 py-3 text-white bg-blue-600 hover:bg-blue-700 font-semibold rounded-xl shadow-lg transition transform hover:scale-105">
+              Get Started
+            </a>
+          </div>
+        </div>
+        <!-- Right: AI Fitness Animation -->
+        <div class="mt-10 lg:mt-0 flex justify-center">
+          <lottie-player 
+            src="https://assets4.lottiefiles.com/packages/lf20_kkflmtur.json"  
+            background="transparent"  
+            speed="1"  
+            style="width: 400px; height: 400px;"  
+            loop autoplay>
+          </lottie-player>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- Footer -->
+  <footer class="bg-white py-6 border-t">
+    <div class="max-w-7xl mx-auto px-4 text-center text-sm text-gray-500">
+      &copy; 2025 Virtual Fitness Coach. All rights reserved.
+    </div>
+  </footer>
+  <!-- Lottie Script -->
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</body>
+</html>
